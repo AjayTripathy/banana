@@ -1,9 +1,7 @@
 var express = require('express');
 var fs = require('fs');
 var mongo = require('mongoskin');
-var db = mongo.db('localhost:27017/rice');
-
-var patientInfo = db.collection('patientInfo');
+var db = mongo.db('localhost:27017/banana');
 
 var nodemailer = require('nodemailer');
 var rest = require('restler');
