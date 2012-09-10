@@ -19,7 +19,7 @@ app.set('view options', {
 });
 
 app.get('/' , function(req, res){
-  console.log("hello")
+	res.render("index");
 })
 
-app.listen(8080);
+app.listen(80);
