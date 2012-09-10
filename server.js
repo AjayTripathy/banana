@@ -1,20 +1,12 @@
 var express = require('express');
 var fs = require('fs');
 var mongo = require('mongoskin');
-var db = mongo.db('localhost:27017/rice');
-
-var patientInfo = db.collection('patientInfo');
+var db = mongo.db('localhost:27017/banana');
 
 var nodemailer = require('nodemailer');
 var rest = require('restler');
 
-
 var app =  express.createServer();
-
-var familyStatus = db.collection('familyStatus');
-
-var crypto = require('crypto');
-var hash = require('node_hash');
 
 app.use(express.static(__dirname + '/static'));
 app.use(express.bodyParser());
