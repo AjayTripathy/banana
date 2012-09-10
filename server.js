@@ -20,6 +20,10 @@ app.set('view options', {
 
 app.get('/' , function(req, res){
 	res.render("index");
-})
+});
+
+app.get("/home", function (req, res) {
+	res.render("home");
+});
 
 app.listen(80);

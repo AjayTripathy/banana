@@ -33,14 +33,11 @@
 		    FB.Event.subscribe("auth.statusChange", function (response) {
 		    	if (response.authResponse) {
 		    		console.log("Authenticated!!!");
-		    		window.location.pathname = "/home"
 		    	}
 		    	else {
 		    		console.log("Not authed or not logged in");
 		    	}
 		    });
-
-		    document.getElementById("loginButton").addEventListener("click", function () { FB.login();});
 		  };
 
 		  // Load the SDK Asynchronously
@@ -55,13 +52,11 @@
 		<div id="fb-root"></div>
 		<div class="container">
 			<div class="hero-unit">
-				<h1>Hello, world!</h1>
-				<p>huehuehue</p>
+				<h1>Welcome!</h1>
 			</div>
 			<div class="row">
 				<div class="span12">
-					<div id="loginButton" class="fb-login-button">
-					</div>
+					<p>One day stuff will go here...
 				</div>
 			</div>
 		</div>
