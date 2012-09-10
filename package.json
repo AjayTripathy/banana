@@ -1,0 +1,24 @@
+{
+  "name": "banana",
+  "version": "0.0.0",
+  "description": "A bold statement to open a dialog about privacy in the modern world.",
+  "main": "server.js",
+  "dependencies": {
+    "mongoskin": "~0.4.1",
+    "passport-facebook": "~0.1.4",
+    "express": "~2.5.9",
+    "ejs": "~0.8.2",
+    "restler": "2.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/AjayTripathy/banana.git"
+  },
+  "author": "Ajay Tripathy, Kevin Hwang",
+  "license": "BSD"
+}
