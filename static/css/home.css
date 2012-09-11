@@ -1,0 +1,9 @@
+body {
+	background-image: url("/images/board.png");
+	background-repeat: repeat;
+	padding-top: 60px;
+	padding-bottom: 40px;
+}
+
+#content {
+}

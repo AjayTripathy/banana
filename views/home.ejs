@@ -8,12 +8,17 @@
 
 		<link href="css/bootstrap.css" rel="stylesheet">
 		<link href="css/bootstrap-responsive.css" rel="stylesheet">
+		<link href="css/home.css" rel="stylesheet">
 
 		<!-- HTML5 shim and I don't know what it does -->
 		<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+
+    <script src="js/jquery.masonry.min.js"></script>
+    <script src="js/underscore.min.js"></script>
+    <script src="js/backbone.min.js"></script>
 	</head>
 
 	<body>
@@ -49,14 +54,73 @@
 		     ref.parentNode.insertBefore(js, ref);
 		   }(document));
 		</script>
+
+		<script>
+			var Bounty = Backbone.Model.extend({
+				initialize: function () {
+					console.log("Bounty created.");
+				},
+				defaults: {
+					name: "John Q. Smith"
+				}
+			});
+
+			var BountyCollection = Backbone.Collection.extend({
+				model: Bounty
+			});
+
+			var BountyView = Backbone.View.extend({
+				tagName: "div",
+				className: "bounty",
+				render: function () {
+					$(this.el).html(this.template(this.model.toJSON()));
+					return this;
+				},
+				initialize: function (args) {
+					console.log("Initializing BountyView");
+					this.model.bind("change:name", function () { console.log("CHANGE NAME WHAT")});
+				}
+			});
+
+			var AppView = Backbone.View.extend({
+				el: $("#content"),
+
+				initialize: function () {
+					console.log("Initializing AppView");
+					Bounties.bind("add", this.addOne, this);
+				},
+
+				addOne: function (bounty) {
+					var view = new BountyView({model: Bounty});
+					$("#content").append(view.render().el);
+				}
+			});
+		</script>
+
+		<script>
+			var twilight = new Bounty({name: "Twilight Sparkle"});
+
+			var Bounties = new BountyCollection;
+
+			var App = new AppView;
+
+		</script>
 		<div id="fb-root"></div>
-		<div class="container">
-			<div class="hero-unit">
-				<h1>Welcome!</h1>
-			</div>
-			<div class="row">
-				<div class="span12">
-					<p>One day stuff will go here...
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span3">
+					<div class="well sidebar-nav">
+						<ul class="nav nav-list">
+							<li class="nav-header">Sidebar</li>
+							<li class="active">
+								<a href="#">Link</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div id="content" class="span9">
+					<p>One day stuff will go here...</p>
+					</div>
 				</div>
 			</div>
 		</div>
