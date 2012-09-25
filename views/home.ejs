@@ -13,12 +13,9 @@
 		<!-- HTML5 shim and I don't know what it does -->
 		<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	    <![endif]-->
 
-    <script src="js/jquery.masonry.min.js"></script>
-    <script src="js/underscore.min.js"></script>
-    <script src="js/backbone.min.js"></script>
+    
 	</head>
 
 	<body>
@@ -55,56 +52,9 @@
 		   }(document));
 		</script>
 
-		<script>
-			var Bounty = Backbone.Model.extend({
-				initialize: function () {
-					console.log("Bounty created.");
-				},
-				defaults: {
-					name: "John Q. Smith"
-				}
-			});
+		
 
-			var BountyCollection = Backbone.Collection.extend({
-				model: Bounty
-			});
-
-			var BountyView = Backbone.View.extend({
-				tagName: "div",
-				className: "bounty",
-				render: function () {
-					$(this.el).html(this.template(this.model.toJSON()));
-					return this;
-				},
-				initialize: function (args) {
-					console.log("Initializing BountyView");
-					this.model.bind("change:name", function () { console.log("CHANGE NAME WHAT")});
-				}
-			});
-
-			var AppView = Backbone.View.extend({
-				el: $("#content"),
-
-				initialize: function () {
-					console.log("Initializing AppView");
-					Bounties.bind("add", this.addOne, this);
-				},
-
-				addOne: function (bounty) {
-					var view = new BountyView({model: Bounty});
-					$("#content").append(view.render().el);
-				}
-			});
-		</script>
-
-		<script>
-			var twilight = new Bounty({name: "Twilight Sparkle"});
-
-			var Bounties = new BountyCollection;
-
-			var App = new AppView;
-
-		</script>
+		
 		<div id="fb-root"></div>
 		<div class="container-fluid">
 			<div class="row-fluid">
@@ -118,11 +68,78 @@
 						</ul>
 					</div>
 				</div>
-				<div id="content" class="span9">
-					<p>One day stuff will go here...</p>
-					</div>
+				<div id="yourcart">
 				</div>
 			</div>
 		</div>
+		<script id="itemTemplate" type="text/template">
+			<img src="<%= photo %>" alt="<%= title %>">
+			<div>
+				<h2><%= title %></h2>
+				<h4>&pound;<%= price %></h4>
+			</div>
+		</script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+
+    <script src="js/jquery.masonry.min.js"></script>
+    <script src="js/underscore.min.js"></script>
+    <script src="js/backbone.min.js"></script>
+    <script>
+			var Item = Backbone.Model.extend({
+				defaults: {
+					price: 35,
+					photo: "http://www.placekitten.com/100/100"
+				}
+			});
+
+			var Cart = Backbone.Collection.extend({
+				model: Item
+			});
+
+			var items = [
+			{ title: "Macbook Air", price: 799 },
+			{ title: "Macbook Pro", price: 999 },
+			{ title: "iPad", price: 399},
+			{ title: "Magic Mouse", price: 50 },
+			{ title: "Cinema Display", price: 799 }
+			];
+
+			var cartCollection = new Cart(items);
+
+			var ItemView = Backbone.View.extend({
+				tagName: "div",
+				className: "item-wrap",
+				template: $("#itemTemplate").html(),
+
+				render: function () {
+					var templ = _.template(this.template);
+					this.$el.html(templ(this.model.toJSON()));
+					return this;
+				}
+			});
+
+			var CartCollectionView = Backbone.View.extend({
+				el: $("#yourcart"),
+				initialize: function () {
+					this.collection = cartCollection;
+					this.render();
+				},
+				render: function () {
+					this.collection.each(function (item) {
+						this.renderItem(item);
+					}, this);
+				},
+				renderItem: function (item) {
+					var itemView = new ItemView({ model: item });
+					this.$el.append(itemView.render().el);
+					console.log(itemView.render().el);
+				}
+			});
+
+			$(function () {
+				cart = new CartCollectionView();
+			});
+		</script>
 	</body>
 </html>			

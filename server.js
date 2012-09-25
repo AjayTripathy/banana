@@ -6,6 +6,10 @@ var db = mongo.db('localhost:27017/banana');
 var nodemailer = require('nodemailer');
 var rest = require('restler');
 
+var ejs = require('ejs');
+ejs.open = '{{';
+ejs.close = '}}';
+
 var app =  express.createServer();
 
 app.use(express.static(__dirname + '/static'));
